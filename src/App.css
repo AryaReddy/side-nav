@@ -1,0 +1,392 @@
+
+.btn {
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.newBtn{
+  background-color:#00A5FF ;
+  margin-bottom: 10px;
+}
+.newBtn:hover{
+  background:#038ed8;
+}
+.updateBtn{
+  background-color:#a044bd ;
+}
+.updateBtn:hover{
+  background:#8425a1;
+}
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  width:95%;
+}
+
+.alert.success {background-color: #7bdb7e;}
+
+
+.container{
+  margin-left: 30px;
+  display: inline;
+}
+.headerStyle, .footerStyle{
+  width: 100%;
+  position: fixed;        
+  background:rgb(0, 0, 0);
+  padding: 10px 0;
+  color: #fff;
+  
+}
+.headerStyle{
+  top: 0;
+}
+.footerStyle{
+  bottom: 0;
+  background-color: rgb(2, 2, 92);
+  text-align: center;
+}
+.headerButton{
+  background-color: black;
+  color: white;
+  border-color: black;
+  font-size: medium;
+  margin-right: 70px;
+  }
+  .headerButton:hover{
+    color:#FFC0CB;
+  }
+  #root{
+    margin-top: 50px;
+    
+  }
+  .box_head{
+    background-color:	#d89585;
+    width:100%;
+    height:50px;
+    padding-top: 15px;
+    color: black;
+    
+  }
+  .box_body{
+    width:100%;
+    height:160px;
+    background-color: rgb(255, 255, 255);
+    
+  }
+  .box{
+    border: 1px solid black;
+    width:35%;
+    margin-bottom: 40px;
+    margin-left: 50px;
+    padding: 0px;
+  }
+  .box_button{
+    background-color:#c9c9c9; 
+    height:50px;
+  }
+  .toss_section{
+    margin-top: 50px;
+  }
+  .order_form{
+    background-color:#EEE8AA ;
+    width:25%;
+    height:600px;
+  }
+  .matchDetails{
+    background-color: #FFDAB9;
+  }
+ .option{
+   text-decoration: none;
+   color: #fff;
+ }
+ 
+
+ .Prematch_button{
+  
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #1d4bd4;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 7px #999;
+  
+ }
+ .Prematch_button{
+  margin-left: 75px;
+  margin-top: 5px;
+  margin-right: 80px;
+ }
+ .Prematch_button:hover{background-color:#1414aa}
+
+.Prematch_button:active{
+  background-color: #1414aa;
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+}
+.Scoring_button{
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #e24c4c;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 7px #999;
+}
+.Scoring_button:hover {background-color:#b91818}
+
+.Scoring_button:active {
+  background-color: #b91818;
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+}
+
+.playerform{
+  margin-left: 500px;
+  width:500px;
+  background-color: #FFFAF0;
+  padding-left: 100px;
+  height: 700px;
+  margin-bottom: 100px;
+}
+label {
+  width:180px;
+  clear:left;
+  text-align:left;
+  padding-right:10px;
+}
+
+.i , label {
+  float:left;
+}
+
+
+.PSbutton,.newbutton{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #00A5FF;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 9px #999;
+  height: 40px;
+  width: 150px;
+  
+}
+.PSbutton{
+  margin-left: 100px;
+}
+.newbutton{
+  margin-left: 0px;
+}
+
+.PSbutton:hover,.newbutton:hover {background-color: #0087FF}
+
+.PSbutton:active,.newbutton:active {
+  background-color: #0078FF;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.playerdetails{
+  margin-top:70px;
+  margin-left:180px;
+  margin-bottom:100px ;
+  
+}
+
+#playerTable {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+#playerTable td, #playerTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#playerTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#playerTable tr:hover {background-color: #ddd;}
+
+#playerTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:#072664;
+  color:aliceblue;
+}
+.newbutton{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #00A5FF;
+}
+
+.container2{
+  width: 90%;
+  margin: 50px auto;
+}
+.heading{
+  margin-left: 120px;
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 20px;
+  margin-top: 67px;
+}
+.row{
+  margin-left: 200px;
+}
+ 
+.card{
+  
+  width: 20%;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+ 
+}
+#card-header1 {
+  text-align: center;
+  padding: 30px 10px;
+  background: rgb(109, 109, 218);
+}
+#card-header2 {
+  text-align: center;
+  padding: 30px 10px;
+  background: rgb(93, 223, 93);
+}
+#card-header3 {
+  text-align: center;
+  padding: 30px 10px;
+  background: rgb(204, 204, 94);
+}
+#card-header4 {
+  text-align: center;
+  padding: 30px 10px;
+  background:rgb(241, 78, 78);
+}
+.card-body .btn{
+  display: block;
+  color: black;
+  text-align: center;
+  background-color: white;
+  margin-top: 10px;
+  text-decoration: none;
+  padding: 10px 5px;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+ 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+ 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+ 
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#lefttable{
+  margin-left: 200px;
+  width: 45%;
+  float: left;
+}
+#righttable{
+  width: 40%;
+  float: right;
+}
+.sidenav {
+  height: 85.3%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(113, 113, 153);
+  overflow-x: hidden;
+  padding-top: 20px;
+  margin-top: 45px;
+  margin-bottom: 50px;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+}
+ 
+.sidenav a:hover {
+  color: white;
+}
+
+.Selected_color{
+  color:white;
+}
+a{
+  text-decoration: none;
+}
+
+.loginpage{
+  align-content: center;
+   margin-left: 500px; 
+   margin-right: 500px;
+  text-align: center;
+  background-color: lightblue;
+  height: 400px;
+
+}
+.loginbtn{
+  margin-left: 50px;
+  margin-top: 20px;
+}
+.marginsave{
+  margin-left: 150px;
+}
+.errormsg{
+  width: 335px;
+  height:20px;
+  background-color: rgb(245, 110, 110);
+}
+
+.bordering{
+  clear:none;
+  border:1px 1px 1px 1px black;
+  background-color:rgba(221, 218, 215, 0.863);
+  
+}
+.width_inc{
+  width:180px;
+}
