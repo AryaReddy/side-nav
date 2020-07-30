@@ -117,7 +117,7 @@ class OutlinedInputAdornments extends React.Component {
           label="First Name"
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">Name</InputAdornment>
+              <InputAdornment position="start">First Name</InputAdornment>
             )
           }}
         />
@@ -128,7 +128,7 @@ class OutlinedInputAdornments extends React.Component {
           label="Last Name"
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">Name</InputAdornment>
+              <InputAdornment position="start">Last Name</InputAdornment>
             )
           }}
         />
@@ -140,7 +140,7 @@ class OutlinedInputAdornments extends React.Component {
           label="Initial"
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">Name</InputAdornment>
+              <InputAdornment position="start">Initial</InputAdornment>
             )
           }}
         />

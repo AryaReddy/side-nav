@@ -21,10 +21,11 @@ import FixtureComponent from './Admin/Fixtures/FixtureComponent';
 import TeamComponent from './Admin/Team/TeamComponent';
 import TeamUpdate from './Admin/Team/TeamUpdate';
 import BodyData from './Admin/Series/SearchTeam';
-import withStyles from './Table/withStyles';
 import PlayerTable from './Table/PlayerTable';
 import Dashboard from './Table/Dashboard';
-
+import Team from './Table/Team';
+import Fixture from './Table/Fixture';
+import Player from './Table/Player';
 //import { withStyles } from '@material-ui/core';
 
 
@@ -52,8 +53,10 @@ function App() {
         <Route path="/admin/dashboard/SeriesDisplay" component={SeriesComponent} />
         <Route path="/searchTeam" component={BodyData} />
         <Route path="/table/PlayerTable" component={PlayerTable}/>
-        <Route path="/table/withStyles" component={withStyles}/>
+        <Route path="/table/Player" component={Player}/>
         <Route path="/table/Dashboard" component={Dashboard}/>
+        <Route path="/table/Team" component={Team}/>
+        <Route path="/table/Fixture" component={Fixture}/>
         </Router>
         <Footer/>
 
