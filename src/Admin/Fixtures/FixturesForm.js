@@ -1,10 +1,134 @@
-import React, { Component } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import { Form, Formik } from "formik";
 import FixtureDataService from './Service/FixtureDataService';
+import TeamDataService from '../Team/Service/TeamDataService';
+import SeriesDataService from '../Series/Service/SeriesDataService';
+import ScorerDataService from './Service/ScorerDataService';
 
+const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  margin: {
+    margin: theme.spacing.unit
+  },
+  textField: {
+    flexBasis: 950
+  },
+  list:{
+    width: "100%",
+    maxWidth: "300px",
+    position: "fixed"
+  }
+});
 
+const Team1 = [
+  {
+    value: "India",
+    label: "India"
+  },
+  {
+    value: "England",
+    label: "England"
+  },
+  {
+    value: "Sri Lanka",
+    label: "Sri Lanka"
+  }
+];
+const Team2 = [
+  {
+    value: "South Africa",
+    label: "South Africa"
+  },
+  {
+    value: "New Zealand",
+    label: "New Zealand"
+  },
+  {
+    value: "Austrila",
+    label: "Austrila"
+  }
+];
+const HomeTeam = [
+  {
+    value: "India",
+    label: "India"
+  },
+  {
+    value: "Austrila",
+    label: "Austrila"
+  }
+];
 
-class FixturesForm extends Component {
+const GameType = [
+  {
+    value: "Friendly Match",
+    label: "Friendly Match"
+  }
+];
+
+const Venue = [
+  {
+    value: "Bangaluru",
+    label: "Bengaluru"
+  },
+  {
+    value: "Chenni",
+    label: "Chenni"
+  }
+];
+
+const Series = [
+  {
+    value: "Twenty 20",
+    label: "Twenty 20"
+  },
+  {
+    value: "Champion Country Match",
+    label: "Champion Country Match"
+  }
+];
+
+const Scorer = [
+  {
+    value: "Scorer 1",
+    label: "Scorer 1"
+  },
+  {
+    value: "Scorer 2",
+    label: "Scorer 2"
+  }
+];
+
+const Live = [
+  {
+    value: "Yes",
+    label: "Yes"
+  },
+  {
+    value: "No",
+    label: "No"
+  }
+];
+
+const formStyle = { width: "100%" };
+
+class OutlinedInputAdornments extends React.Component {
     constructor(props) {
         super(props)
 
@@ -12,165 +136,404 @@ class FixturesForm extends Component {
            team1:"",
            team2:"",
            home_team:"",
-           match_type:"",
+           match_type:"National",
            venue:"",
-           series_id:"",
            series_name:"",
+           series_id:"",
            description:"",
            fixture_date_time:"",
            gmt_offset:"",
-           live_coverage:"",
-           scorer_id:""
+           live_coverage:"Yes",
+           scorer_id:"",
+           scorer_name:"",
+           teams:[],
+           series:[],
+           scorers:[]
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
+        this.refreshTeams = this.refreshTeams.bind(this)
+        this.refreshSeries = this.refreshSeries.bind(this)
+        this.refreshScorers = this.refreshScorers.bind(this)
+        
     }
-   /* componentDidMount() {
+    componentDidMount() {
+        this.refreshTeams();
+        this.refreshSeries();
+        this.refreshScorers();
+    }
+    refreshTeams() {
+        TeamDataService.retrieveAllTeams()
+            .then(
+                response => {
+                    console.log(response);
+                    this.setState({ teams: response.data })
+                }
+            )
+            
+    }
+    refreshSeries() {
+        SeriesDataService.retrieveAllSeries()
+            .then(
+                response => {
+                    console.log(response);
+                    this.setState({ series: response.data })
+                }
+            )
+            
+    }
+    refreshScorers() {
+        ScorerDataService.retrieveAllScorers()
+            .then(
+                response => {
+                    console.log(response);
+                    this.setState({ scorers: response.data })
+                }
+            )
+            
+    }
+    
+    
+    
+   /* onSubmit(values) {
+        let seriesName
+        let scorer_name
+        
 
-    }   */
-    validate(values) {
-        let errors = {};
-        if (!values.description) {
-            errors.description = 'Enter Match Description'
-        } else if(!(values.description).match(/^[a-zA-Z][a-zA-Z ]+$/)){ 
-            errors.description = 'Invalid Match Description'
+        this.setState({series_id:values.series_id})
+        this.state.series.map(s =>{
+            if(s.series_id===this.state.series_id){
+               seriesName=s.series_short_name
+                }
         }
-        return errors
-    
-       
-    }
-    
-    onSubmit(values) {
-        var fixture = {
-            team1: values.team1,
-            Team2: values.team2,
-            home_team: values.home_team,
-            match_type:values.match_type,
-            venue:values.venue,
-            series_id:values.series_id,
-            series_name:values.series_name,
-            description:values.description,
-            match_date_time: this.state.match_date_time,
-            gmt_offset:values.gmt_offset,
-            live_coverage:values.live_coverage,
-            scorer_id:values.scorer_id
-        }
-        console.log(fixture);
+           
+        )
+
+
+        this.setState({scorer_id:values.scorer_id})
+        this.state.scorers.map(s =>{
+            if(s.scorer_id===this.state.scorer_id){
+               scorer_name=s.firstname+" "+s.middlename+" "+s.lastname
+                }
+        }  
+           
+        )
+
+        
         FixtureDataService.createFixture(fixture)
-         .then(() => this.props.history.push('/admin/dashboard/FixtureDisplay'))
+        .then(() => this.props.history.push('/admin/dashboard/FixtureDisplay'))
+        console.log(fixture);
         
-        console.log(values);
-        
-    }
-    render() {
-        
-        let team1 = this.state.team1
-        let team2 = this.state.team2
-        let home_team = this.state.home_team
-        let match_type = this.state.match_type
-        let venue= this.state.venue
-        let series_id = this.state.series_id
-        let series_name= this.state.series_name
-        let description = this.state.description
-        let fixture_date_time = this.state.fixture_date_time
-        let gmt_offset = this.state.gmt_offset
-        let live_coverage = this.state.live_coverage
-        let scorer_id = this.state.scorer_id
+    }   */
 
-        return (
-            <div>
-                 <div className="sidenav">
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value ,
+      [team1]: event.target.value ,
+      
+      [team2]: event.target.value ,
+      [home_team]: event.target.value ,
+      [series_id]:event.target.value ,
+      [series_name]:event.target.value ,
+      [fixture_date_time]:event.target.value ,
+      [match_type]: event.target.value ,
+      [description]: event.target.value ,
+      [live_coverage]:event.target.value ,
+      [venue]:event.target.value ,
+      [scorer_id]:event.target.value ,
+      [scorer_name]:event.target.value ,
+      [gmt_offset]:event.target.value ,});
+    
+  };
+  handleSubmit=() => {
+    var fixture={
+      team2:values.team2,
+      home_team:values.home_team ,
+      series_id:values.series_id ,
+      series_name:seriesName ,
+      fixture_date_time:values.fixture_date_time ,
+      match_type: values.match_type,
+      description: values.description,
+      live_coverage:values.live_coverage ,
+      venue:values.venue ,
+      scorer_id:values.scorer_id ,
+      scorer_name:scorer_name ,
+      gmt_offset:values.gmt_offset
+  }
+
+  }
+ 
+
+  render() {
+    
+
+    const { classes } = this.props;
+    const {
+      values: { team1,team2,match_type,home_team,venue,series_id,series_name,description,fixture_date_time ,live_coverage,gmt_offset,scorer_id },
+    
+    } = props;
+    
+
+    return (
+      <div>
+        <div class="sidenav">
                 <a href="/admin/dashboard">Dashboard</a><hr></hr>
                 <a href="/admin/dashboard/FixtureDisplay"><div className="Selected_color">Fixtures</div></a><hr></hr>
-                <a href="/admin/dashboard/SeriesDisplay">Series Mastar</a><hr></hr>
+                <a href="/admin/dashboard/SeriesDisplay">Series Master</a><hr></hr>
                 <a href="/admin/dashboard/TeamDisplay">Team Master</a><hr></hr>
-                <a href="/admin/dashboard/PlayerDisplay">Player Master</a><hr></hr>
+                <a href="/admin/dashboard/PlayerDisplay">Team</a><hr></hr>
                 </div>
-                <div className="playerform">
-            <Formik
-                    initialValues={{team1,team2,match_type,home_team,venue,series_id,series_name,description,fixture_date_time ,live_coverage,gmt_offset,scorer_id}}
-                    onSubmit={this.onSubmit}
-                    validateOnChange={false}
-                    validateOnBlur={false}
-                    validate={this.validate}
-                    enableReinitialize={true}>
-                    {
-                        (props) => (
-                            <Form>  
-                                 <br/> 
-                                     <ErrorMessage name="description" component="div"
-                                        className=" errormsg alert warning" />     
-                                    <br></br>
-                                    <label>Team1</label>
-                                    <Field as="select" name="team1">
-                                        <option value="A_team">India</option>
-                                        <option value="B_team">England</option>
-                                    </Field><br></br><br></br>
 
-                                    <label>Team2</label>
-                                    <Field as="select" name="team2">
-                                        <option value="C_team">England</option>
-                                        <option value="D_team">Sri Lanka</option>
-                                    </Field><br></br><br></br>
-
-                                    
-                                    <label>Home Team</label>
-                                    <Field as="select" name="home_team">
-                                        <option value="C_team">India</option>
-                                        <option value="D_team">England</option>
-                                    </Field><br></br><br></br>
-
-                                    <label>Game Type</label>
-                                    <Field as="select" name="match_type">
-                                        <option value="C_team">Friendly match</option>
-                                        <option value="D_team"></option>
-                                    </Field><br></br><br></br>
-
-                                    <label>Venue</label>
-                                    <Field as="select" name="venue">
-                                        <option value="C_team">Bangalore</option>
-                                        <option value="D_team">Chennai</option>
-                                    </Field><br></br><br></br>
-
-                                    <label>Series</label>
-                                    <Field as="select" name="series_name">
-                                        <option value="C_team">T20 series</option>
-                                        <option value="D_team">Champion county match</option>
-                                    </Field><br></br><br></br>
-
-                                    <label>Match Description</label>
-                                    <Field className="form-control" type="text" name="description" /><br></br><br></br>
-
-                                   
-                                    <label>Match Date and Time</label>
-                                    <Field className="form-control" type="text" name="fixture_date_time" /><br></br><br></br>
-                                    
-
-                                    <label>GMT Offset</label>
-                                    <Field className="form-control" type="text" name="gmt_offset" /><br></br><br></br>
-
-                                    <label>Scorer</label>
-                                    <Field as="select" name="scorer">
-                                        <option value="Scorer 1">Scorer 1</option>
-                                        <option value="Scorer 2">Scorer 2</option>
-                                    </Field><br></br><br></br>
-
-                                    <label>Live coverage</label>
-                                    <Field as="select" name="live_coverage">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </Field><br></br><br></br>
-
-                                <button className="btn warning marginsave" type="submit">Save</button>
-                            </Form>
-                        )
-                    }
-                </Formik>
-                </div>
-            </div>
-        )
-    }
-
+          <div
+            style={{ marginLeft: "35%", textAlign: "left", marginTop: "5%" }}
+          >
+            <br />
+            <Paper
+              style={{
+                width: "600px",
+                paddingLeft: "2%",
+                paddingRight: "0%",
+                paddingTop: "1%"
+              }}
+            >
+              <center>
+                <h3>Fixture</h3>
+              </center>
+              
+               
+              
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField,this.props.textField,this.props.dense)}
+                margin="dense"
+                variant="outlined"
+                label="With Select"
+                value={this.state.team1}
+                onChange={this.handleChange("team1")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Team-1</InputAdornment>
+                  )
+                }}
+              >
+                {Team1.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.team2}
+                onChange={this.handleChange("team2")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Team-2</InputAdornment>
+                  )
+                }}
+              >
+                {Team2.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br />
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.home_team}
+                onChange={this.handleChange("home_team")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Home Team</InputAdornment>
+                  )
+                }}
+              >
+                {HomeTeam.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.match_type}
+                onChange={this.handleChange("match_type")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Game Type</InputAdornment>
+                  )
+                }}
+              >
+                {GameType.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br />
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.venue}
+                onChange={this.handleChange("venue")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Venue</InputAdornment>
+                  )
+                }}
+              >
+                {Venue.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.series_name}
+                onChange={this.handleChange("series_name")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Series</InputAdornment>
+                  )
+                }}
+              >
+                {Series.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br />
+              <TextField
+                style={{ width: "45%" }}
+                id="outlined-simple-start-adornment"
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="Match Description"
+                value={this.description}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      Match Description
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                style={{ width: "45%" }}
+                id="outlined-simple-start-adornment"
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="Match date and time"
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+              <TextField
+                style={{ width: "45%" }}
+                id="outlined-simple-start-adornment"
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="GMT Offset"
+                value= {this.gmt_offset}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">GMT Offset</InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                style={{ width: "45%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.scorer_name}
+                onChange={this.handleChange("scorer_name")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">Scorer</InputAdornment>
+                  )
+                }}
+              >
+                {Scorer.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                style={{ width: "93%" }}
+                select
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                label="With Select"
+                value={this.state.live_coverage}
+                onChange={this.handleChange("live_coverage")}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      Live Coverage
+                    </InputAdornment>
+                  )
+                }}
+              >
+                {Live.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br />
+              <br />
+              <center>
+                <Button
+                  variant="contained"
+                  style={{ width: "150px" }}
+                  className={classes.button}
+                  type="submit"
+                  onSubmit={this.onSubmit}
+                >
+                  Create
+                  
+                </Button>
+              </center>
+              <br />
+              <br /> <br />
+              <br />
+              
+            </Paper>
+          </div>
+        </div>
+    );
+  }
 }
 
-export default FixturesForm
+OutlinedInputAdornments.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(OutlinedInputAdornments);

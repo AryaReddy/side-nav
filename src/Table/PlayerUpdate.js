@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 
+
 const styles = theme => ({
   root: {
     display: "flex",
@@ -117,9 +118,9 @@ class OutlinedInputAdornments extends React.Component {
 
     return (
       <div>
-        
+        <div>
           <List component="nav" className={classes.list}  >
-            <ListItem button divider varient="outline" color="secondary" >
+            <ListItem button divider>
               <ListItemText primary="Dashboard" />
             </ListItem>
             <Divider />
@@ -145,11 +146,11 @@ class OutlinedInputAdornments extends React.Component {
               <ListItemText primary="Scorer" />
             </ListItem>
           </List>
-          
+          </div>
       <div style={{marginLeft:"35%",textAlign:"left",marginTop:"5%"}} >
         <br></br>
         <Paper  style={{width:"600px",paddingLeft:"2%",paddingRight:"0%",paddingTop:"1%"}}>
-        <center><h3>Add new Player</h3></center>  
+        <center><h3>Update Player</h3></center>  
         <TextField
         style={{width:"45%"}}
           id="outlined-simple-start-adornment"
@@ -220,7 +221,7 @@ class OutlinedInputAdornments extends React.Component {
           id="outlined-simple-start-adornment"
           className={classNames(classes.margin, classes.textField)}
           variant="outlined"
-          label="Date of Birthday"
+          label="Birthday"
           type="date"
           defaultValue="2017-05-24"
           InputLabelProps={{

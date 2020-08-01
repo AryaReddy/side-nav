@@ -22,12 +22,17 @@ import TeamComponent from './Admin/Team/TeamComponent';
 import TeamUpdate from './Admin/Team/TeamUpdate';
 import BodyData from './Admin/Series/SearchTeam';
 import PlayerTable from './Table/PlayerTable';
-import Dashboard from './Table/Dashboard';
 import Team from './Table/Team';
-import Fixture from './Table/Fixture';
 import Player from './Table/Player';
-//import { withStyles } from '@material-ui/core';
+import Series from './Table/Series';
+import TeamName from './Table/TeamName';
+import SeriesName from './Table/SeriesName';
+import PlayerUpdate from './Table/PlayerUpdate';
+import SeriesUpdate from './Table/SeriesUpdate';
+import TeamsUpdate from './Table/TeamsUpdate';  
 
+import RefereeForm from './Admin/Referee/RefereeForm';
+import Test from './Table/Test';
 
 function App() {
   return (
@@ -53,10 +58,7 @@ function App() {
         <Route path="/admin/dashboard/SeriesDisplay" component={SeriesComponent} />
         <Route path="/searchTeam" component={BodyData} />
         <Route path="/table/PlayerTable" component={PlayerTable}/>
-        <Route path="/table/Player" component={Player}/>
-        <Route path="/table/Dashboard" component={Dashboard}/>
-        <Route path="/table/Team" component={Team}/>
-        <Route path="/table/Fixture" component={Fixture}/>
+        
         </Router>
         <Footer/>
 

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -29,13 +30,28 @@ const styles = theme => ({
   }
 });
 
+const Live = [
+  {
+    value: "Dhoni",
+    label: "Dhoni"
+  },
+  {
+    value: "Virat",
+    label: "Virat"
+  }
+];
+
 const formStyle = { width: "100%" };
 
 class OutlinedInputAdornments extends React.Component {
   state = {
-    tname: "",
-    tstate: "",
-    tcountry: ""
+    team_id: "",
+    players: [],
+    teams: [],
+    message: null,
+    selected: "",
+    player_id: "",
+    tname: ""
   };
 
   handleChange = prop => event => {
@@ -47,7 +63,6 @@ class OutlinedInputAdornments extends React.Component {
 
     return (
       <div>
-        
         <List component="nav" className={classes.list}  >
             <ListItem button divider>
               <ListItemText primary="Dashboard" />
@@ -89,51 +104,28 @@ class OutlinedInputAdornments extends React.Component {
               }}
             >
               <center>
-                <h3>Team</h3>
+                <h3>Series Name</h3>
               </center>
               <TextField
                 style={{ width: "93%" }}
-                id="outlined-simple-start-adornment"
+                select
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Team Name"
+                label="With Select"
+                value={this.state.weightRange}
+                onChange={this.handleChange("weightRange")}
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      Team Name
-                    </InputAdornment>
+                    <InputAdornment position="start">Team Name</InputAdornment>
                   )
                 }}
-              />
-              <TextField
-                style={{ width: "93%" }}
-                id="outlined-simple-start-adornment"
-                className={classNames(classes.margin, classes.textField)}
-                variant="outlined"
-                label="State"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      State
-                    </InputAdornment>
-                  )
-                }}
-              />
-              <br />
-              <TextField
-                style={{ width: "93%" }}
-                id="outlined-simple-start-adornment"
-                className={classNames(classes.margin, classes.textField)}
-                variant="outlined"
-                label="Country"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      Country
-                    </InputAdornment>
-                  )
-                }}
-              />
+              >
+                {Live.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               <br />
               <br />
               <center>
@@ -151,6 +143,7 @@ class OutlinedInputAdornments extends React.Component {
             </Paper>
           </div>
         </div>
+      
     );
   }
 }
